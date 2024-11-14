@@ -1,36 +1,33 @@
-// function solution(n, m, section) {
-//   var answer = 0;
-//   let first = section.at(0); // 처음 칠한 부분
-//   const last = section.at(-1); //마지막 칠해야하는 부분
-
-//   //section-index
-//   section.forEach((item) => {
-//     if (first <= last) {
-//       answer += 1;
-//       first = first + m - 1; //칠한 후 자리 옮기기
-//     } else if (first > last) {
-//       return;
-//     }
-//     console.log(answer);
-//   });
-//   return answer;
-// }
-
-// solution(5, 4, [1, 3]);
-
-function solution(n, m, section) {
-  var answer = 0;
-  let first = section.at(0); // 처음 칠한 부분
-
-  //section-index
-  section.forEach((item) => {
-    if (item >= first) {
-      answer += 1;
-      first = item + m; //칠한 후 자리 옮기기
+function solution(wallpaper) {
+  var answer = [];
+  const Xvalue = [];
+  const Yvalue = [];
+  wallpaper.forEach((value, index) => {
+    if (value.includes('#')) {
+      console.log(value);
+      let maxYIndex = value.lastIndexOf('#') + 1;
+      let minYIndex = value.indexOf('#');
+      let maxXIndex = index;
+      let minXIndex = index + 1;
+      Xvalue.push(maxXIndex, minXIndex);
+      Yvalue.push(maxYIndex, minYIndex);
     }
-    console.log(answer);
   });
+  const minX = Math.min(...Xvalue);
+  answer.push(minX);
+  const minY = Math.min(...Yvalue);
+  answer.push(minY);
+  const maxX = Math.max(...Xvalue);
+  answer.push(maxX);
+  const maxY = Math.max(...Yvalue);
+  answer.push(maxY);
+  //   console.log(answer);
   return answer;
 }
-
-solution(5, 4, [1, 3]);
+solution([
+  '..........',
+  '.....#....',
+  '......##..',
+  '...##.....',
+  '....#.....',
+]);
